@@ -8,14 +8,10 @@ function readDb() {
 }
 
 function readDb2() {
-    //let's see if the file is auto saved and formatted
+    //10 ms auto save set now. check if it works
     mssqlAdapter.queryWithPromise('select top 1 * from dbo.H1B')
         .then(result => console.log(result))
         .catch(err => console.error(err));
-}
-
-function hell() { 
-    return 'hellp';
 }
 
 readDb2();
