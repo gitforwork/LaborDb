@@ -10,13 +10,20 @@ var config = {
 };
 
 function dbQueryWithPromise(queryString){
-    return sql.connect(config)
-                .then(pool => {
-                    var result = pool.request()
-                    //.input('input_parameter', sql.Int, value)
-                    .query(queryString).recordset;
-                    return result;
-                })
+
+        return new Promise(function(resolve,reject){
+            sql.connect(config)
+            .then(pool => {
+                                return pool.request()
+                                //.input('input_parameter', sql.Int, value)
+                                .query(queryString);
+                            })
+                            .then(result => resolve(result.recordset))
+                            .catch(err => reject(err));
+
+            console.log("Inside a promise");
+
+        });
 }
 
 function dbQuery(queryString, callback){
