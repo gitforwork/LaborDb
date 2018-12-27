@@ -7,4 +7,10 @@ function readDb(){
     console.dir(results);
 }
 
-readDb();
+function readDbPromise(){
+    mssqlAdapter.queryWithPromise('select top 1 * from dbo.H1B')
+        .then(result => console.log(result))
+        .catch(err => console.error(err));
+}
+
+readDbPromise();
