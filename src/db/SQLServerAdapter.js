@@ -9,29 +9,29 @@ var config = {
     port: 1433
 };
 
-function dbQueryWithPromise(queryString){
+function dbQueryWithPromise(queryString) {
 
-        return new Promise(function(resolve,reject){
-            sql.connect(config)
+    return new Promise(function (resolve, reject) {
+        sql.connect(config)
             .then(pool => {
-                                return pool.request()
-                                //.input('input_parameter', sql.Int, value)
-                                .query(queryString);
-                            })
-                            .then(result => resolve(result.recordset))
-                            .catch(err => reject(err));
+                return pool.request()
+                    //.input('input_parameter', sql.Int, value)
+                    .query(queryString);
+            })
+            .then(result => resolve(result.recordset))
+            .catch(err => reject(err));
 
-            console.log("Inside a promise");
+        console.log("Inside a promise");
 
-        });
+    });
 }
 
-function dbQuery(queryString, callback){
+function dbQuery(queryString, callback) {
     var resultSet;
     sql.connect(config).then(pool => {
         return pool.request()
-        //.input('input_parameter', sql.Int, value)
-        .query(queryString)
+            //.input('input_parameter', sql.Int, value)
+            .query(queryString)
     }).then(result => {
         resultSet = result.recordset;
         console.dir(resultSet);
