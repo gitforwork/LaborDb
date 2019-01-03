@@ -9,7 +9,7 @@ var config = {
     port: 1433
 };
 
-function dbQueryWithPromise(queryString) {
+function queryWithPromise(queryString) {
 
     return new Promise(function (resolve, reject) {
         sql.connect(config)
@@ -26,27 +26,8 @@ function dbQueryWithPromise(queryString) {
     });
 }
 
-function dbQuery(queryString, callback) {
-    var resultSet;
-    sql.connect(config).then(pool => {
-        return pool.request()
-            //.input('input_parameter', sql.Int, value)
-            .query(queryString)
-    }).then(result => {
-        resultSet = result.recordset;
-        console.dir(resultSet);
-    }).catch(err => {
-        console.log('error');
-        console.log(err);
-    })
-
-    sql.on('error', err => {
-        console.log('looks like global handler of error');
-    })
-}
-
 var db = {
-    query: dbQuery,
-    queryWithPromise: dbQueryWithPromise
+    queryWithPromise: queryWithPromise
 }
+
 module.exports = db;
