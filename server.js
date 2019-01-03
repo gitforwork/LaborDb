@@ -6,6 +6,10 @@ function readDb2() {
     h1bDAO.countNumberOfH1b('cap gemini')
         .then(result => console.log(result))
         .catch(err => console.error(err));
+
+    h1bDAO.getAggregateForEmployer('CAPGEMINI AMERICA INC')
+        .then(result => console.log(result))
+        .catch(err => console.error(err));
 }
 
 readDb2();

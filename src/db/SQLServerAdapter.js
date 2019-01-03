@@ -9,6 +9,19 @@ var config = {
     port: 1433
 };
 
+function queryWithConnectionPool(queryString) {
+    return new Promise(function (resolve, reject) {
+        new sql.ConnectionPool(config).connect()
+            .then(pool => {
+                return pool.request()
+                    //.input('input_parameter', sql.Int, value)
+                    .query(queryString);
+            })
+            .then(result => resolve(result.recordset))
+            .catch(err => reject(err));
+    });
+}
+
 function queryWithPromise(queryString) {
 
     return new Promise(function (resolve, reject) {
@@ -18,8 +31,14 @@ function queryWithPromise(queryString) {
                     //.input('input_parameter', sql.Int, value)
                     .query(queryString);
             })
-            .then(result => resolve(result.recordset))
-            .catch(err => reject(err));
+            .then(result => {
+                resolve(result.recordset);
+                sql.close();
+            })
+            .catch(err => {
+                reject(err);
+                sql.close();
+            });
 
         console.log("Inside a promise");
 
@@ -27,7 +46,7 @@ function queryWithPromise(queryString) {
 }
 
 var db = {
-    queryWithPromise: queryWithPromise
+    query: queryWithConnectionPool
 }
 
 module.exports = db;
