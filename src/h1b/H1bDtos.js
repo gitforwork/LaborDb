@@ -7,6 +7,16 @@ class H1bAggregate {
     }
 }
 
+class H1bTitleAggregate {
+    
+    constructor(count, avgSalary, title) {
+        this.count = count;
+        this.avgSalary = avgSalary;
+        this.title = title;
+    }
+}
+
 module.exports = {
-    H1bAggregate
+    H1bAggregate,
+    H1bTitleAggregate
 }
