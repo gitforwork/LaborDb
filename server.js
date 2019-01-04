@@ -1,5 +1,5 @@
 
-var h1bDAO = require('./src/h1b/h1bDAO.js');
+var h1bDAO = require('./src/h1b/H1bDAO.js');
 
 function readDb2() {
     //10 ms auto save set now. check if it works
