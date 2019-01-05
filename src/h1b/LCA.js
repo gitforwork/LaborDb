@@ -1,6 +1,7 @@
 'use strict'
 
-var db = require('../repository/SqlServer.repository');//import can be used instead
+const SqlServerRepository = require('../repository/SqlServer.repository').SqlServerRepository;//import can be used instead
+const repo = new SqlServerRepository();
 var h1bDTOs = require('./H1bDtos');
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
 
 function countNumberOfH1b(employer) {
     return new Promise(function (resolve, reject) {
-        db.list('select count(*) count from dbo.H1b')
+        repo.findAll('select count(*) count from dbo.H1b')
             .then(result => resolve(result[0].count))
             .catch(err => reject(err));
     });
@@ -19,7 +20,7 @@ function countNumberOfH1b(employer) {
 
 function getAggregateForEmployerByTitle(employer) {
     return new Promise(function (resolve, reject) {
-        db.list(
+        repo.findAll(
             `select JOB_TITLE, count(case_number) case_count, AVG((WAGE_RATE_OF_PAY_FROM+WAGE_RATE_OF_PAY_TO)/2) AVG_WAGE 
             from dbo.H1B 
             where 
@@ -41,7 +42,7 @@ function getAggregateForEmployerByTitle(employer) {
 
 function getAggregateForEmployer(employer) {
     return new Promise(function (resolve, reject) {
-        db.list(
+        repo.findAll(
             `select FISCAL_YEAR, count(case_number) case_count,
              AVG((WAGE_RATE_OF_PAY_FROM+WAGE_RATE_OF_PAY_TO)/2) AVG_WAGE 
             from dbo.H1B 
