@@ -1,18 +1,21 @@
 'use strict'
 
 const sql = require('mssql');
-const dataSource = require('../config/resources').dataSource; //mocks by the ugly proxyquire
+const dbConnection = require('../config/resources').dataSource; //mocks by the ugly proxyquire
 class SqlServerRepository {
 
     constructor() {
-        this.dataSource = dataSource;
+        this.dataSource = dbConnection;
     }
-
+    
     findAll(query) {
-        return this.list(query); //interesting, 'this' is required here
+        return this._list(query); //interesting, 'this' is required here
     }
 
-    list(queryString, queryParams) {
+    _list(queryString, queryParams) {
+        //need to do gymnastics to make a method private.
+        //_ is a convention to make a method private
+        var dataSource = this.dataSource;
         return new Promise(function (resolve, reject) {
             new sql.ConnectionPool(dataSource).connect()
                 .then(pool => {
