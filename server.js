@@ -11,9 +11,9 @@ function readDb2() {
         .then(result => console.log(result))
         .catch(err => console.error(err));
     
-    /* lca.getAggregateForEmployerByTitle('CAPGEMINI AMERICA INC')
+    lca.getAggregateForEmployerByTitle('CAPGEMINI AMERICA INC')
         .then(result => console.log(result))
-        .catch(err => console.error(err)); */
+        .catch(err => console.error(err));
 }
 
 readDb2();
