@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gitforwork/LaborDb#readme",
   "dependencies": {
-    "mssql": "^4.3.0"
+    "mssql": "^4.3.0",
+    "pug": "^2.0.3"
   }
 }
